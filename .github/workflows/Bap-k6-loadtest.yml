@@ -28,10 +28,11 @@ jobs:
 
   build_and_push:
     needs: pre_build
-    uses: hpi-schul-cloud/infra-tools/.github/workflows/build-and-push.yaml@9427df6b6015b8f6dc3b0c1142ffe35dfd4b1e0f # main
+    uses: dbildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@8
     with:
-      registry: ghcr.io
-      image: dbildungsplattform/${{ needs.pre_build.outputs.tagName }}
-      tag: ${{ needs.pre_build.outputs.versionName }}
+      container_registry: "ghcr.io"
+      image_name: "${{ needs.pre_build.outputs.tagName }}"
+      image_tag_generation: "specified,mm_git_tag"
+      image_tag: "${{ needs.pre_build.outputs.versionName }}"
       context: ./infrastructure/${{ needs.pre_build.outputs.tagName }}/
   
